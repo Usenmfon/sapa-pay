@@ -1,29 +1,32 @@
 {
-  "name": "sapa-pay",
-  "version": "1.0.0",
-  "description": "database using mongodb for sapapay",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "keywords": [
-    "nodejs",
-    "express",
-    "jwt",
-    "mongoose"
-  ],
-  "author": "usenmfon",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.15"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.2"
-  }
+    "name": "sapa-pay",
+    "version": "1.0.0",
+    "description": "database using mongodb for sapapay",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "keywords": [
+        "nodejs",
+        "express",
+        "jwt",
+        "mongoose"
+    ],
+    "author": "usenmfon",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.1",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.1.2"
+    },
+    "engines": {
+        "node": "16.13.1"
+    }
 }
