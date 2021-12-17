@@ -26,7 +26,7 @@ exports.signup = async(req, res) => {
         const referral = await User.findOne({ id: req.body.referral, }).catch(() => {
 
         })
-        referrral.count += 1
+        referral.count += 1
         referral.save()
     }
 
