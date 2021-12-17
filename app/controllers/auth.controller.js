@@ -5,7 +5,7 @@ const User = db.user;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.signup = async(req, res) => {
 
     // Email
     User.findOne({
@@ -21,6 +21,14 @@ exports.signup = (req, res) => {
             return;
         }
     });
+
+    if (req.body.referral) {
+        const referral = await User.findOne({ id: req.body.referral, }).catch(() => {
+
+        })
+        referrral.count += 1
+        referral.save()
+    }
 
     const user = new User({
         email: req.body.email,
