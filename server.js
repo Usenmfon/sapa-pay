@@ -15,8 +15,8 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
+require('./app/routes/auth.route')(app);
+// require('./app/routes/user.route')(app);
 
 const db = require("./app/models");
 const Role = db.role;
@@ -30,48 +30,12 @@ db.mongoose
     })
     .then(() => {
         console.log("Successfully connect to MongoDB.");
-        initial();
+        // initial();
     })
     .catch((err) => {
         console.error("Connection error", err);
         process.exit();
     });
-
-function initial() {
-    Role.estimatedDocumentCount((err, count) => {
-        if (!err && count === 0) {
-            new Role({
-                name: "user",
-            }).save((err) => {
-                if (err) {
-                    console.log("error", err);
-                }
-
-                console.log("added 'user' to roles collection");
-            });
-
-            new Role({
-                name: "moderator",
-            }).save((err) => {
-                if (err) {
-                    console.log("error", err);
-                }
-
-                console.log("added 'moderator' to roles collection");
-            });
-
-            new Role({
-                name: "admin",
-            }).save((err) => {
-                if (err) {
-                    console.log("error", err);
-                }
-
-                console.log("added 'admin' to roles collection");
-            });
-        }
-    });
-}
 
 app.get("/", (req, res) => {
     res.json({ message: "Welcome sapa-pay application" });
