@@ -16,10 +16,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require('./app/routes/auth.route')(app);
-// require('./app/routes/user.route')(app);
+require('./app/routes/user.route')(app);
 
 const db = require("./app/models");
-const Role = db.role;
 
 const connectionString = process.env.MONGO_URL || `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`
 
