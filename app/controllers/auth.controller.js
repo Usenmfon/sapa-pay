@@ -5,29 +5,34 @@ const User = db.user;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
+function getToken(user) {
+    return jwt.sign({ id: user._id, isAdmin: user.isAdmin, fullname: user.fullname }, config.secret, {
+        expiresIn: 86400 // 24 hours
+    });
+}
+
 exports.signup = async(req, res) => {
 
     // Email
-    User.findOne({
+    const tempUser = await User.findOne({
         email: req.body.email,
-    }).exec((err, user) => {
-        if (err) {
-            res.status(400).send({ message: err });
-            return;
-        }
+    })
 
-        if (user) {
-            res.status(400).send({ message: "Failed! Email is already in use!" });
-            return;
-        }
-    });
+    // console.log(tempUser)
+
+    if (tempUser) {
+        res.status(400).json({ message: "failed user exist" })
+        return
+    }
 
     if (req.body.referral) {
         const referral = await User.findOne({ id: req.body.referral, }).catch(() => {
 
         })
         referral.count += 1
+
         referral.save()
+        console.log(referral)
     }
 
     const user = new User({
@@ -41,9 +46,7 @@ exports.signup = async(req, res) => {
         res.status(400).send({ success: false, data: e })
     })
 
-    var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400 // 24 hours
-    });
+    var token = getToken(user)
 
     res.status(200).send({
         id: user._id,
@@ -78,11 +81,9 @@ exports.signin = (req, res) => {
                 });
             }
 
-            var token = jwt.sign({ id: user.id }, config.secret, {
-                expiresIn: 86400 // 24 hours
-            });
+            var token = getToken(user)
 
-            var authorities = [];
+            // var authorities = [];
 
             res.status(200).send({
                 id: user._id,

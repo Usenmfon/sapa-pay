@@ -7,6 +7,9 @@ const User = mongoose.model(
         email: { type: String, required: [true, 'enter an email '] },
         password: { type: String, required: [true, 'enter a password '] },
         referral: { type: String },
+        count: { type: Number, default: 0 },
+        isAdmin: { type: Boolean, default: false },
+
 
         roles: [{
             type: mongoose.Schema.Types.ObjectId,
