@@ -32,19 +32,21 @@ exports.signup = async(req, res) => {
         referral.count += 1
 
         referral.save()
-        console.log(referral)
+        // console.log(referral)
     }
 
     const user = new User({
         email: req.body.email,
         fullname: req.body.fullname,
+        username: req.body.username,
+        sex: req.body.sex,
+        businessName: req.body.businessName,
+        phoneNumber: req.body.phoneNumber,
         password: bcrypt.hashSync(req.body.password, 8)
     });
 
-    user.save().catch(e => {
-
-        res.status(400).send({ success: false, data: e })
-    })
+    try{
+        user.save()
 
     var token = getToken(user)
 
@@ -53,6 +55,12 @@ exports.signup = async(req, res) => {
         email: user.email,
         accessToken: token
     });
+
+    }catch( e) {
+
+       res.status(400).send({ success: false, data: e })
+    }
+    
 };
 
 exports.signin = (req, res) => {
