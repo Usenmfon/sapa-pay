@@ -6,7 +6,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 function getToken(user) {
-    return jwt.sign({ id: user._id, isAdmin: user.isAdmin, fullname: user.fullname }, config.secret, {
+    return jwt.sign({ id: user._id, isAdmin: user.isAdmin, fullname: user.fullname, username: user.username }, config.secret, {
         expiresIn: 86400 // 24 hours
     });
 }
@@ -26,7 +26,7 @@ exports.signup = async(req, res) => {
     }
 
     if (req.body.referral) {
-        const referral = await User.findOne({ id: req.body.referral, }).catch(() => {
+        const referral = await User.findOne({ username: req.body.referral, }).catch(() => {
 
         })
         referral.count += 1
@@ -53,10 +53,11 @@ exports.signup = async(req, res) => {
     res.status(200).send({
         id: user._id,
         email: user.email,
+        username: user.username,
         accessToken: token
     });
 
-    }catch( e) {
+    }catch(e) {
 
        res.status(400).send({ success: false, data: e })
     }

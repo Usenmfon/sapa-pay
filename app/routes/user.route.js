@@ -9,26 +9,9 @@ module.exports = function(app) {
         );
         next();
     });
-
-    // app.get("/api/all", controller.allAccess);
-
-    // app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
-
-    // app.get(
-    //     "/api/mod", [authJwt.verifyToken, authJwt.isModerator],
-    //     controller.moderatorBoard
-    // );
-
-    // app.get(
-    //     "/api/admin", [authJwt.verifyToken, authJwt.isAdmin],
-    //     controller.adminBoard
-    // );
-
+    
     app.get("/api/users", [authJwt.verifyToken], authJwt.isAdmin, controller.getUsers)
 
     app.get("/api/user", [authJwt.verifyToken], controller.getUser);
 
-    // app.post("/api/user", controller.createUser);
-
-    // app.put("/api/user/:id", controller.editUser);
 };
