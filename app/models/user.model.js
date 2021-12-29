@@ -8,6 +8,7 @@ const User = mongoose.model(
         email: { type: String, required: [true, 'enter an email '] },
         password: { type: String, required: [true, 'enter a password '] },
         sex: { type: String},
+        country: { type: String},
         businessName: { type: String},
         phoneNumber: { type: String},
         referral: { type: String },
